@@ -12,48 +12,29 @@
 
 #include "../../../includes/cub3d.h"
 
-static void free_map(t_map *map)
-{
-	int i;
-	
-	i = 0;
-	while (i < map->map_height - 1){
-		free(map->map[i]);
-	}
-	free(map->map);
-}
-
-static int get_map_line_size(char *path, t_map *map)
+static int	get_map_line_size(char *path, t_map *map)
 {
 	int		fd;
 	char	*line;
 	int		i;
 	int		size;
-	
+
 	line = NULL;
 	map->map_height = 1;
 	map->map_width = 0;
 	fd = open(path, O_RDONLY);
 	catch_error();
-	i = 0;
-	size = 0;
-	while(get_next_line(fd, &line) == 1)
-	{
-		while (line[i] == ' ')
-			i++;
-		if (line[i] == '1')
-			break;
-		size++;
-	}
+	size = skip_map_struct(fd, line);
 	while (get_next_line(fd, &line) == 1)
 	{
+		if (!is_line_valid(line))
+			break ;
 		if (ft_strlen(line) > map->map_width)
 			map->map_width = ft_strlen(line);
 		free(line);
 		map->map_height++;
 	}
-	catch_error();
-	map->map_height++;
+	check_valid_end(line, map, fd);
 	free(line);
 	close(fd);
 	return (size);
@@ -61,16 +42,16 @@ static int get_map_line_size(char *path, t_map *map)
 
 static int	read_map(t_map *map, char *path)
 {
-	int	i;
-	char *line;
-	int	res;
-	int	fd;
-	
+	int		i;
+	char	*line;
+	int		res;
+	int		fd;
+
 	fd = open(path, O_RDONLY);
 	skip_to_map(get_map_line_size(path, map), fd);
 	map->map = (char **)malloc(sizeof(char *) * (map->map_height + 1));
 	i = 0;
-	while ((res = get_next_line(fd, &line)))
+	while ((res = get_next_line(fd, &line)) && i < map->map_height - 1)
 	{
 		map->map[i] = (char *)malloc(map->map_width + 1);
 		line_copy(&map->map[i], line, map->map_width);
@@ -87,7 +68,7 @@ static int	read_map(t_map *map, char *path)
 	return (1);
 }
 
-int		read_file(t_map *map, char *path)
+int			read_file(t_map *map, char *path)
 {
 	int		fd;
 	char	*line;
@@ -96,29 +77,13 @@ int		read_file(t_map *map, char *path)
 	catch_error();
 	while (get_next_line(fd, &line))
 	{
-		if(ft_strlen(line) > 2)
-		{
-			if (line[0] == 'R')
-				parse_r(map, line);
-			if (line[0] == 'N' && line[1] == 'O')
-				map->mapstruct.no_texture = get_texture(line);
-			if (line[0] == 'S' && line[1] == 'O')
-				map->mapstruct.so_texture = get_texture(line);
-			if (line[0] == 'W' && line[1] == 'E')
-				map->mapstruct.we_texture = get_texture(line);
-			if (line[0] == 'E' && line[1] == 'A')
-				map->mapstruct.ea_texture = get_texture(line);
-			if (line[0] == 'S' && line[1] == ' ')
-				map->mapstruct.sprite_texture = get_texture(line);
-			if (line[0] == 'F' && line[1] == ' ')
-				map->mapstruct.floor_color = get_color(line);
-			if (line[0] == 'C' && line[1] == ' ')
-				map->mapstruct.ceilling_color = get_color(line);
-		}
+		if (ft_strlen(line) > 2)
+			catch_params(map, map->mapstruct, line);
 		free(line);
 	}
+	catch_params(map, map->mapstruct, line);
 	free(line);
 	close(fd);
-	//read_map(map, path);
+	read_map(map, path);
 	return (is_valid_structure(map));
 }

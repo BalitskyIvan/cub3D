@@ -1,0 +1,21 @@
+R 1920 1080
+
+NO textures/wall.xpm
+
+SO textures/wall.xpm
+
+WE textures/wall.xpm
+
+EA textures/wall.xpm
+S  textures/wall.xpm
+
+F 184    ,113    , 39
+C 51     ,  133      ,    1
+
+
+ 11111111111
+1001    10001
+1001    10001
+1001111110001
+1000N00000001
+1111111111111

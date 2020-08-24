@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 HEADER = includes/
 
@@ -19,11 +19,24 @@ LIBFT_DIR = ./libft/libft.a
 SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
 	./SRCS/main.c \
+	./SRCS/moving_handler.c \
+	./SRCS/moving_handler_utils.c \
+	./SRCS/screen.c \
+	./SRCS/draw_back.c \
+	./SRCS/draw_world.c \
+	./SRCS/draw_world_utils.c \
+	./SRCS/screen_utils.c \
+	./SRCS/tools/map_printer/print_map.c \
+	./SRCS/tools/map_printer/print_map_utils.c \
 	./SRCS/tools/map_reader/map_reader.c \
 	./SRCS/tools/map_reader/map_reader_utils.c \
 	./SRCS/tools/map_reader/line_parser.c \
+	./SRCS/tools/map_reader/parse_color.c \
+	./SRCS/tools/map_reader/parse_r.c \
+	./SRCS/tools/map_reader/parse_texture.c \
 	./SRCS/tools/parser/parser.c \
-	./SRCS/tools/error_manager.c
+	./SRCS/tools/parser/parser_utils.c \
+	./SRCS/tools/managers/error_manager.c
 
 O_FILE = $(patsubst %.c,%.o,$(SRCS))
 D_FILE = $(patsubst %.c,%.d,$(SRCS))
@@ -35,8 +48,10 @@ all: $(NAME)
 
 $(NAME): $(O_FILE)
 	$(MAKE) -C libft all
-	gcc $(FLAGS) $(O_FILE) $(LIBFT_DIR) -o $(NAME)
-	$(MAKE) -C libft fclean
+	$(MAKE) -C minilibx all
+	gcc $(FLAGS) $(O_FILE) $(LIBFT_DIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	#$(MAKE) -C libft fclean
+	#$(MAKE) -C minilibx clean
 
 %.o: %.c ./includes/.h
 	gcc -c $(FLAGS) -I$(HEADER) -c $< -o $@ -MD

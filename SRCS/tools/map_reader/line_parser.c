@@ -12,60 +12,68 @@
 
 #include "../../../includes/cub3d.h"
 
-void parse_r(t_map *map, char *line)
+int		is_valid_structure(t_map *map)
 {
-	int i;
-
-	i = 1;
-	while (line[i] == ' ')
-		i++;
-	map->mapstruct.rate_width = ft_atoi(line + i);
-	while (line[i] != ' ' && line[i])
-		i++;
-	map->mapstruct.rate_height = ft_atoi(line + i);
-}
-
-char *get_texture(char *line)
-{
-	int i;
-
-	i = 2;
-	while (line[i] == ' ')
-		i++;
-	if (line[i])
-		return (line + i);
+	if (map->map_height > 0 && map->map_width > 0 &&
+		map->mapstruct.rate_height > 0 && map->mapstruct.rate_width > 0 &&
+		map->mapstruct.ea_texture != NULL &&
+		map->mapstruct.no_texture != NULL &&
+		map->mapstruct.so_texture != NULL &&
+		map->mapstruct.we_texture != NULL &&
+		map->mapstruct.sprite_texture != NULL &&
+		map->mapstruct.floor_color.red > -1 &&
+		map->mapstruct.floor_color.green > -1 &&
+		map->mapstruct.floor_color.blue > -1 &&
+		map->mapstruct.ceilling_color.red > -1 &&
+		map->mapstruct.ceilling_color.green > -1 &&
+		map->mapstruct.ceilling_color.blue > -1
+		&& map->map != NULL && map->is_map_valid == 1)
+		return (1);
 	else
-		return (NULL);
+		return (0);
 }
 
-t_color get_color(char *line)
+void	line_copy(char **src, char *dst, int width)
 {
 	int i;
-	t_color color;
 
-	i = 1;
-	while (line[i] == ' ')
+	i = 0;
+	while (dst[i])
+	{
+		(*src)[i] = dst[i];
 		i++;
-	color.red = ft_atoi(line + i);
-	while (line[i] != ',' && line[i])
+	}
+	while (i < width)
+	{
+		(*src)[i] = ' ';
 		i++;
-	i++;
-	color.green = ft_atoi(line + i);
-	while (line[i] != ',' && line[i])
-		i++;
-	i++;
-	color.blue = ft_atoi(line + i);
-	return (color);
+	}
+	(*src)[i] = '\0';
 }
 
 void	skip_to_map(int parameters_h, int fd)
 {
-	int i;
-	char *line;
-	
+	int		i;
+	char	*line;
+
 	i = 0;
-	while (i < parameters_h){
+	while (i < parameters_h)
+	{
 		get_next_line(fd, &line);
 		free(line);
+		i++;
 	}
+}
+
+int		is_line_valid(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (is_right_arg(line[i]))
+		return (1);
+	else
+		return (0);
 }

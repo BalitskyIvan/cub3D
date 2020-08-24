@@ -45,23 +45,55 @@ static t_map init_map()
 	
 	player.x = -1;
 	player.y = -1;
+	map.is_map_valid = 1;
 	map.map = NULL;
 	map.player = player;
 	map.mapstruct = init_mapstruct();
 	return (map);
 }
 
+void print_map(t_map map)
+{
+		int i = 0;
+	printf("WIDTH : %d\n", map.map_width);
+		printf("HEIGHT : %d\n", map.map_height);
+		printf("RATE: %d %d\n", map.mapstruct.rate_width, map.mapstruct.rate_height);
+		printf("NO %s\n", map.mapstruct.no_texture);
+		printf("SO %s\n", map.mapstruct.so_texture);
+		printf("WE %s\n", map.mapstruct.we_texture);
+		printf("EA %s\n", map.mapstruct.ea_texture);
+		printf("S %s\n", map.mapstruct.sprite_texture);
+		printf("F: %d, %d, %d\n", map.mapstruct.floor_color.red, map.mapstruct.floor_color.green, map.mapstruct.floor_color.blue);
+		printf("C: %d, %d, %d\n", map.mapstruct.ceilling_color.red, map.mapstruct.ceilling_color.green, map.mapstruct.ceilling_color.blue);
+		printf("\n__________MAP____________\n\n");
+		while (i < map.map_height)
+		{
+			printf("%s\n", map.map[i]);
+			i++;
+		}
+}
+
 int main(int argc, char **argv)
 {
+	errno = 0;
 	t_map map;
-	int i = 0;
-
+	
 	map = init_map();
 	if (argc == 2)
 	{
 		if (!read_file(&map, argv[1]))
-		 	return (-1);
-		printf("%d", is_map_valid(&map));
+		{
+			print_map(map);
+			ft_putstr_fd("Error: not a valid map structure", 0);
+			return (-1);
+		}
+		print_map(map);
+		if (!is_map_valid(&map))
+		{
+			ft_putstr_fd("Error: not a valid map", 0);
+			return (-1);
+		}
+		create(&map);
 	}
 	return (0);
 }
