@@ -101,7 +101,7 @@ typedef struct		s_vars {
 		t_vector2	ea_texture_wh;
 		t_vector2	sprite_texture_wh;
 }					t_vars;
-
+int				get_wall_pole(float vector_pos_x, float vector_pos_y, t_map *map, float step);
 float			get_distance(t_map *map, t_vector2 *wall_xy, float ration, float alpha);
 float			get_wall_width(float **wall, t_vector2 *wall_xy, t_map *map, int i);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);

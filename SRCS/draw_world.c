@@ -12,47 +12,69 @@
 
 #include "../includes/cub3d.h"
 
-static void		draw_rect(t_data *img, t_data *source, t_vector2 wh_texture, float x, float x_wall, t_vector2 start_and_width, float height, t_map *map)
+static void		draw_rect(t_data *img, t_vars *vars, t_vector2 vector, float x, float height, t_map *map, int pole, float dist)
 {
-	float	i2;
-	float	width_scale;
-	float	height_scale;
-	int 	i;
+	float		i2;
+	t_vector2	texture_get;
+	t_vector2	texture_wh;
+	t_data		*texture;
+	float r_h;
 
-	width_scale = start_and_width.y / wh_texture.x;
-	height_scale = height / wh_texture.y;
-	i2 = map->mapstruct.rate_height / 2 - height / 2;
-	i = 0;
-	while (i2 < map->mapstruct.rate_height / 2 + height / 2)
+	if (pole == 0)
 	{
-		my_mlx_pixel_put(img, x, i2, my_mlx_pixel_get(source, ((x_wall + start_and_width.x) / width_scale), i / height_scale));
+		texture = vars->no_texture;
+		texture_wh.x = vars->no_texture_wh.x;
+		texture_wh.y = vars->no_texture_wh.y;
+		texture_get.x = ((int) (vector.x * texture_wh.x) % (int) texture_wh.x);
+	}
+	if (pole == 1)
+	{
+		texture = vars->so_texture;
+		texture_wh.x = vars->so_texture_wh.x;
+		texture_wh.y = vars->so_texture_wh.y;
+		texture_get.x = ((int) ((texture_wh.x - vector.x) * texture_wh.x) % (int) texture_wh.x);
+	}
+	if (pole == 2)
+	{
+		texture = vars->we_texture;
+		texture_wh.x = vars->we_texture_wh.x;
+		texture_wh.y = vars->we_texture_wh.y;
+		texture_get.x = ((int) ((texture_wh.x - vector.y) * texture_wh.x) % (int) texture_wh.x);
+	}
+	if (pole == 3)
+	{
+		texture = vars->ea_texture;
+		texture_wh.x = vars->ea_texture_wh.x;
+		texture_wh.y = vars->ea_texture_wh.y;
+		texture_get.x = ((int) (vector.y * texture_wh.x) % (int) texture_wh.x);
+	}
+	r_h = height;
+	if (r_h > map->mapstruct.rate_height)
+		r_h = map->mapstruct.rate_height;
+	i2 = map->mapstruct.rate_height / 2 - r_h / 2;
+	while (i2 < map->mapstruct.rate_height / 2 + r_h / 2 &&  i2 <= map->mapstruct.rate_height)
+	{
+		texture_get.y = (i2 - (map->mapstruct.rate_height / 2 - height / 2)) / (height / texture_wh.y);
+		my_mlx_pixel_put(img, x, i2, my_mlx_pixel_get(texture, texture_get.x, texture_get.y));
 		i2++;
-		i++;
 	}
 }
 
 void			draw_world(t_data *img, t_map *map, t_vars *vars)
 {
-	int		i;
-	int		i2;
-	float	*wall;
-	float	visible_wall_width;
+	int			i;
+	float		alpha;
+	float		dist;
+	float		step = 0.01;
 	t_vector2	wall_xy;
+	float		height;
 
-	wall = malloc((map->mapstruct.rate_width + 1) * sizeof(float));
 	i = 0;
 	while (i < map->mapstruct.rate_width)
 	{
-		i2 = 0;
-		visible_wall_width = get_wall_width(&wall, &wall_xy, map, i);
-		printf("WIDTH IS : %f\n", wall_xy.y);
-		while (i2 < visible_wall_width)
-		{
-			draw_rect(img, vars->no_texture, vars->no_texture_wh, i, i2, wall_xy, map->mapstruct.rate_height / wall[i2], map);
-			i2++;
-			i++;
-		}
+		alpha = map->player.alpha - FOV / 2 + FOV * i / map->mapstruct.rate_width;
+		dist = get_distance(map, &wall_xy, step, alpha) * cos(alpha - map->player.alpha);
+		draw_rect(img, vars, wall_xy, i, map->mapstruct.rate_height / (float) dist, map, get_wall_pole(wall_xy.x, wall_xy.y, map, step), dist);
 		i++;
 	}
-	free(wall);
 }

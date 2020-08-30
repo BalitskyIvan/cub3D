@@ -25,18 +25,26 @@ static void load(t_vars *vars)
 	vars->no_texture_wh.y = height;
 	vars->so_texture = mlx_xpm_file_to_image(vars->mlx, vars->map->mapstruct.so_texture,
 	&width, &height);
+	vars->so_texture->addr = mlx_get_data_addr(vars->so_texture, &vars->so_texture->bits_per_pixel, &vars->so_texture->line_length,
+	&vars->so_texture->endian);
 	vars->so_texture_wh.x = width;
 	vars->so_texture_wh.y = height;
 	vars->we_texture = mlx_xpm_file_to_image(vars->mlx, vars->map->mapstruct.we_texture,
 	&width, &height);
+	vars->we_texture->addr = mlx_get_data_addr(vars->we_texture, &vars->we_texture->bits_per_pixel, &vars->we_texture->line_length,
+	&vars->we_texture->endian);
 	vars->we_texture_wh.x = width;
 	vars->we_texture_wh.y = height;
 	vars->ea_texture = mlx_xpm_file_to_image(vars->mlx, vars->map->mapstruct.ea_texture,
 	&width, &height);
+	vars->ea_texture->addr = mlx_get_data_addr(vars->ea_texture, &vars->ea_texture->bits_per_pixel, &vars->ea_texture->line_length,
+	&vars->ea_texture->endian);
 	vars->ea_texture_wh.x = width;
 	vars->ea_texture_wh.y = height;
 	vars->sprite_texture = mlx_xpm_file_to_image(vars->mlx, vars->map->mapstruct.sprite_texture,
 	&width, &height);
+	vars->sprite_texture->addr = mlx_get_data_addr(vars->sprite_texture, &vars->sprite_texture->bits_per_pixel, &vars->sprite_texture->line_length,
+	&vars->sprite_texture->endian);
 	vars->sprite_texture_wh.x = width;
 	vars->sprite_texture_wh.y = height;
 }

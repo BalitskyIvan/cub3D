@@ -1,21 +1,19 @@
 R 1920 1080
 
-NO textures/wall.xpm
+NO textures/no.xpm
 
-SO textures/wall.xpm
+SO textures/so.xpm
 
-WE textures/wall.xpm
+WE textures/we.xpm
 
-EA textures/wall.xpm
-S  textures/wall.xpm
+EA textures/ea.xpm
+S  textures/ea.xpm
 
 F 184    ,113    , 39
 C 51     ,  133      ,    1
 
-
- 11111111111
-1001    10001
-1001    10001
-1001111110001
-1000N00000001
-1111111111111
+ 111 
+10001
+10N01
+10001
+ 111

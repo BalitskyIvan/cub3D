@@ -32,8 +32,8 @@ int		get_key(int keycode, t_vars *vars)
 	float	moving_delta;
 	t_map *map;
 
-	anchor_delta = 0.2;
-	moving_delta = 0.2;
+	anchor_delta = 0.1;
+	moving_delta = 0.1;
 	if (keycode == 0)
 		turn_left(vars->map, moving_delta);
 	if (keycode == 2)
