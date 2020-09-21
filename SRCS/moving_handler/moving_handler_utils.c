@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	turn_left(t_map *map, float delta)
 {
@@ -19,8 +19,8 @@ void	turn_left(t_map *map, float delta)
 		map->player.x + delta * cos(map->player.alpha - PI / 2) >= 0 &&
 		map->player.y + delta * sin(map->player.alpha - PI / 2) >= 0)
 	{
-		if (map->map[(int) (map->player.y + delta * sin(map->player.alpha - PI / 2))]
-			[(int) (map->player.x + delta * cos(map->player.alpha - PI / 2))] != '1')
+		if (!is_wall(map->map[(int) (map->player.y + delta * sin(map->player.alpha - PI / 2))]
+			[(int) (map->player.x + delta * cos(map->player.alpha - PI / 2))]))
 		{
 			map->player.x += delta * cos(map->player.alpha - PI / 2);
 			map->player.y += delta * sin(map->player.alpha - PI / 2);
@@ -35,8 +35,8 @@ void	turn_right(t_map *map, float delta)
 		map->player.x + delta * cos(map->player.alpha + PI / 2) >= 0 &&
 		map->player.y + delta * sin(map->player.alpha + PI / 2) >= 0)
 	{
-		if (map->map[(int) (map->player.y + delta * sin(map->player.alpha + PI / 2))]
-			[(int) (map->player.x + delta * cos(map->player.alpha + PI / 2))] != '1')
+		if (!is_wall(map->map[(int) (map->player.y + delta * sin(map->player.alpha + PI / 2))]
+			[(int) (map->player.x + delta * cos(map->player.alpha + PI / 2))]))
 		{
 			map->player.x += delta * cos(map->player.alpha + PI / 2);
 			map->player.y += delta * sin(map->player.alpha + PI / 2);
@@ -51,8 +51,8 @@ void	turn_up(t_map *map, float delta)
 		map->player.x + delta * cos(map->player.alpha) >= 0 &&
 		map->player.y + delta * sin(map->player.alpha) >= 0)
 	{
-		if (map->map[(int) (map->player.y + delta * sin(map->player.alpha))]
-			[(int) (map->player.x + delta * cos(map->player.alpha))] != '1')
+		if (!is_wall(map->map[(int) (map->player.y + delta * sin(map->player.alpha))]
+			[(int) (map->player.x + delta * cos(map->player.alpha))]))
 		{
 			map->player.x += delta * cos(map->player.alpha);
 			map->player.y += delta * sin(map->player.alpha);
@@ -67,8 +67,8 @@ void	turn_down(t_map *map, float delta)
 		map->player.x - delta * cos(map->player.alpha) >= 0 &&
 		map->player.y - delta * sin(map->player.alpha) >= 0)
 	{
-		if (map->map[(int) (map->player.y - delta * sin(map->player.alpha))]
-			[(int) (map->player.x - delta * cos(map->player.alpha))] != '1')
+		if (!is_wall(map->map[(int) (map->player.y - delta * sin(map->player.alpha))]
+			[(int) (map->player.x - delta * cos(map->player.alpha))]))
 		{
 			map->player.x -= delta * cos(map->player.alpha);
 			map->player.y -= delta * sin(map->player.alpha);

@@ -19,13 +19,16 @@ LIBFT_DIR = ./libft/libft.a
 SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
 	./SRCS/main.c \
-	./SRCS/moving_handler.c \
-	./SRCS/moving_handler_utils.c \
-	./SRCS/screen.c \
-	./SRCS/draw_back.c \
+	./SRCS/moving_handler/moving_handler.c \
+	./SRCS/moving_handler/moving_handler_utils.c \
+	./SRCS/screen/screen.c \
+	./SRCS/draw_sprite/draw_sprite.c \
+	./SRCS/screen/screen_utils.c \
+	./SRCS/draw_walls/draw_walls.c \
+	./SRCS/draw_walls/draw_walls_utils.c \
+	./SRCS/draw_walls/pole_checker.c \
+	./SRCS/tools/draw_back.c \
 	./SRCS/draw_world.c \
-	./SRCS/draw_world_utils.c \
-	./SRCS/screen_utils.c \
 	./SRCS/tools/map_printer/print_map.c \
 	./SRCS/tools/map_printer/print_map_utils.c \
 	./SRCS/tools/map_reader/map_reader.c \

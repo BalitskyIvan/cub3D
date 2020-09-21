@@ -42,6 +42,14 @@ int	is_an_object(char c)
 		return (0);
 }
 
+int is_wall(char c)
+{
+	if (c == '1' || c == '2')
+		return (1);
+	else
+		return (0);
+}
+
 int	is_a_player(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'W' ||

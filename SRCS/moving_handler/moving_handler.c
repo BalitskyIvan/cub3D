@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static void change_anchorleft(t_map *map, float delta)
 {
@@ -36,6 +36,8 @@ int		get_key(int keycode, t_vars *vars)
 	moving_delta = 0.1;
 	if (keycode == 0)
 		turn_left(vars->map, moving_delta);
+	if (keycode == 53)
+		exit(0);
 	if (keycode == 2)
 		turn_right(vars->map, moving_delta);
 	if (keycode == 13)

@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 {
 	errno = 0;
 	t_map map;
-	
+
 	map = init_map();
 	if (argc == 2)
 	{
@@ -87,12 +87,12 @@ int main(int argc, char **argv)
 			ft_putstr_fd("Error: not a valid map structure", 0);
 			return (-1);
 		}
-		print_map(map);
 		if (!is_map_valid(&map))
 		{
 			ft_putstr_fd("Error: not a valid map", 0);
 			return (-1);
 		}
+			print_map(map);
 		create(&map);
 	}
 	return (0);

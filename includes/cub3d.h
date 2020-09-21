@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 64
@@ -23,6 +23,10 @@
 
 # ifndef FOV
 #  define FOV PI/3
+# endif
+
+# ifndef STEP
+#  define STEP 0.01
 # endif
 
 # include <unistd.h>
@@ -47,6 +51,13 @@ typedef struct	s_data {
 	int			line_length;
 	int			endian;
 }				t_data;
+
+typedef struct	s_drawconfig 
+{
+	t_vector2	texture_get;
+	t_vector2	texture_wh;
+	t_data		*texture;
+}				t_drawconfig;
 
 typedef struct		s_player
 {
@@ -85,29 +96,39 @@ typedef struct		s_map
 	t_mapstruct		mapstruct;
 }					t_map;
 
-typedef struct		s_vars {
-		void		*mlx;
-		void		*win;
-		t_map		*map;
-		t_data		*img;
-		t_data		*no_texture;
-		t_data		*so_texture;
-		t_data		*we_texture;
-		t_data		*ea_texture;
-		t_data		*sprite_texture;
-		t_vector2	no_texture_wh;
-		t_vector2	so_texture_wh;
-		t_vector2	we_texture_wh;
-		t_vector2	ea_texture_wh;
-		t_vector2	sprite_texture_wh;
-}					t_vars;
-int				get_wall_pole(float vector_pos_x, float vector_pos_y, t_map *map, float step);
-float			get_distance(t_map *map, t_vector2 *wall_xy, float ration, float alpha);
+typedef struct			s_vars {
+		void			*mlx;
+		void			*win;
+		t_map			*map;
+		t_data			*img;
+		t_data			*no_texture;
+		t_data			*so_texture;
+		t_data			*we_texture;
+		t_data			*ea_texture;
+		t_data			*sprite_texture;
+		t_vector2		no_texture_wh;
+		t_vector2		so_texture_wh;
+		t_vector2		we_texture_wh;
+		t_vector2		ea_texture_wh;
+		t_vector2		sprite_texture_wh;
+		t_vector2		wall_xy;
+		t_list			*sprite_list;
+}						t_vars;
+
+void			print_position(void *content);
+int				draw_sprite(t_list *sprite_list, t_vars *vars, float dist[]);
+t_list			*init_spritelist(t_vars *vars);
+int				check_angular(t_vector2 *wall_xy, t_map *map);
+int				draw_walls(t_vars *vars, int i, int last, float dist);
+void			init_drawconfig(t_vars *vars, t_drawconfig *drawconfig, int pole, t_vector2 vector);
+int				get_wall_pole(t_vector2 vector_pos, t_map *map, int last);
+float			get_distance(t_map *map, t_vector2 *wall_xy, float alpha);
 float			get_wall_width(float **wall, t_vector2 *wall_xy, t_map *map, int i);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 void			draw_world(t_data *img, t_map *map, t_vars *vars);
 void			render_player(t_map *map, t_data *img, t_vector2 wh);
 void			render(t_vars *vars);
+int				is_wall(char c);
 void			turn_down(t_map *map, float delta);
 void			turn_up(t_map *map, float delta);
 void			turn_right(t_map *map, float delta);

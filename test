@@ -1,4 +1,4 @@
-R 1920 1080
+R 1080 720
 
 NO textures/no.xpm
 
@@ -7,13 +7,17 @@ SO textures/so.xpm
 WE textures/we.xpm
 
 EA textures/ea.xpm
-S  textures/ea.xpm
+S  textures/sprite.xpm
 
-F 184    ,113    , 39
-C 51     ,  133      ,    1
+F 151 ,151 ,151
+C 42,42,42 
 
- 111 
-10001
-10N01
-10001
- 111
+ 1111111 
+100000001
+100000001
+100000001
+100010001
+100000001
+100000021
+1000E0021
+ 1111111
