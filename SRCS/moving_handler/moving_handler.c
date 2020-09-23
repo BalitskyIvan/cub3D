@@ -15,15 +15,15 @@
 static void change_anchorleft(t_map *map, float delta)
 {
 	map->player.alpha -= delta;
-	if (map->player.alpha < 0)
-		map->player.alpha = 2 * PI;
+	// if (map->player.alpha < 0)
+	// 	map->player.alpha = 2 * PI;
 }
 
 static void change_anchorright(t_map *map, float delta)
 {
 	map->player.alpha += delta;
-	if (map->player.alpha > (2 * PI))
-		map->player.alpha = 0;
+	// if (map->player.alpha > (2 * PI))
+	// 	map->player.alpha = 0;
 }
 
 int		get_key(int keycode, t_vars *vars)
