@@ -79,7 +79,8 @@ int main(int argc, char **argv)
 	t_map map;
 
 	map = init_map();
-	if (argc == 2)
+	if (argc == 2 || (argc == 3 && ft_strlen(argv[2]) == 6 &&
+	ft_strncmp(argv[2], "--save", 6) == 0))
 	{
 		if (!read_file(&map, argv[1]))
 		{
@@ -92,8 +93,11 @@ int main(int argc, char **argv)
 			ft_putstr_fd("Error: not a valid map", 0);
 			return (-1);
 		}
-			print_map(map);
-		create(&map);
+		print_map(map);
+		if (argc == 2)
+			create(&map, 0);
+		else
+			create(&map, 1);
 	}
 	return (0);
 }

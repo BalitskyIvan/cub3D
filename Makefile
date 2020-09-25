@@ -19,15 +19,18 @@ LIBFT_DIR = ./libft/libft.a
 SRCS = ./gnl/get_next_line.c \
 	./gnl/get_next_line_utils.c \
 	./SRCS/main.c \
+	./SRCS/moving_handler/handle_collisions.c \
 	./SRCS/moving_handler/moving_handler.c \
 	./SRCS/moving_handler/moving_handler_utils.c \
 	./SRCS/screen/screen.c \
 	./SRCS/draw_sprite/draw_sprite.c \
+	./SRCS/draw_sprite/draw_sprite_utils.c \
 	./SRCS/screen/screen_utils.c \
 	./SRCS/draw_walls/draw_walls.c \
 	./SRCS/draw_walls/draw_walls_utils.c \
 	./SRCS/draw_walls/pole_checker.c \
 	./SRCS/tools/draw_back.c \
+	./SRCS/tools/screenshot/screenshot_maker.c \
 	./SRCS/draw_world.c \
 	./SRCS/tools/map_printer/print_map.c \
 	./SRCS/tools/map_printer/print_map_utils.c \

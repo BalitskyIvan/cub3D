@@ -49,8 +49,8 @@ static int	check(t_map *map, int x, int y)
 				return (0);
 			else
 			{
-				map->player.x = x;
-				map->player.y = y;
+				map->player.x = x + 0.5;
+				map->player.y = y + 0.5;
 				map->player.alpha = get_player_angle(map->map[y][x]);
 				(*map).map[y][x] = '0';
 			}
@@ -76,8 +76,8 @@ t_list		*init_spritelist(t_vars *vars)
 			if (vars->map->map[(int)position.y][(int)position.x] == '2')
 			{
 				pos = malloc(sizeof(t_vector2));
-				pos->x = position.x;
-				pos->y = position.y;
+				pos->x = position.x + 0.5;
+				pos->y = position.y + 0.5;
 				if (!flag)
 				{
 					flag = 1;

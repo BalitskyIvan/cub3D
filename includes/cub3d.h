@@ -115,9 +115,14 @@ typedef struct			s_vars {
 		t_list			*sprite_list;
 }						t_vars;
 
+void			make_screenshot(t_vars *vars);
+int				is_collision_detected(float delta_x, float delta_y, t_map *map);
+int				get_sprite_screensize(float sprite_dist, t_vars *vars);
+void			draw_sprite_rect(int x, t_vector2 size, t_vars *vars, int sprite_screen_size);
 void			print_position(void *content);
 int				draw_sprite(t_list *sprite_list, t_vars *vars, float dist[]);
 t_list			*init_spritelist(t_vars *vars);
+t_vector2		get_sprite_size(t_vars *vars, t_vector2 *config, int sprite_screen_size);
 int				check_angular(t_vector2 *wall_xy, t_map *map);
 int				draw_walls(t_vars *vars, int i, int last, float dist);
 void			init_drawconfig(t_vars *vars, t_drawconfig *drawconfig, int pole, t_vector2 vector);
@@ -139,7 +144,7 @@ void			draw_back(t_map *map, t_data *img);
 void			draw_map(t_data *img, t_map *map);
 int				create_trgb(int t, int r, int g, int b);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void			create(t_map *map);
+void			create(t_map *map, int is_screenshot);
 int				skip_map_struct(int fd, char *line);
 void			check_valid_end(char *line, t_map *map, int fd);
 void			catch_maperror();

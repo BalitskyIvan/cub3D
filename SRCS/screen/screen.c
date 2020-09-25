@@ -53,24 +53,32 @@ void	render(t_vars *vars)
 {
 	draw_back(vars->map, vars->img);
 	draw_world(vars->img, vars->map, vars);
-//	draw_map(vars->img, vars->map);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 }
 
-void	create(t_map *map)
+static void	create_screenshot(t_vars *vars)
+{
+	draw_back(vars->map, vars->img);
+	draw_world(vars->img, vars->map, vars);
+	make_screenshot(vars);
+}
+
+void	create(t_map *map, int is_screenshot)
 {
 	t_vars			vars;
 	t_data			img;
 
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, map->mapstruct.rate_width, map->mapstruct.rate_height, "cub3D");
 	img.img = mlx_new_image(vars.mlx, map->mapstruct.rate_width, map->mapstruct.rate_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
+	vars.win = mlx_new_window(vars.mlx, map->mapstruct.rate_width, map->mapstruct.rate_height, "cub3D");
 	vars.map = map;
 	vars.img = &img;
 	vars.sprite_list = init_spritelist(&vars);
 	load(&vars);
+	if (is_screenshot == 1)
+		create_screenshot(&vars);
 	render(&vars);
 	hook_keys(&vars);
 	mlx_loop(vars.mlx);
