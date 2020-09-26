@@ -26,7 +26,7 @@
 # endif
 
 # ifndef STEP
-#  define STEP 0.01
+#  define STEP 0.005
 # endif
 
 # include <unistd.h>

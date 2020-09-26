@@ -52,27 +52,6 @@ static t_map init_map()
 	return (map);
 }
 
-void print_map(t_map map)
-{
-	int i = 0;
-	printf("WIDTH : %d\n", map.map_width);
-	printf("HEIGHT : %d\n", map.map_height);
-	printf("RATE: %d %d\n", map.mapstruct.rate_width, map.mapstruct.rate_height);
-	printf("NO %s\n", map.mapstruct.no_texture);
-	printf("SO %s\n", map.mapstruct.so_texture);
-	printf("WE %s\n", map.mapstruct.we_texture);
-	printf("EA %s\n", map.mapstruct.ea_texture);
-	printf("S %s\n", map.mapstruct.sprite_texture);
-	printf("F: %d, %d, %d\n", map.mapstruct.floor_color.red, map.mapstruct.floor_color.green, map.mapstruct.floor_color.blue);
-	printf("C: %d, %d, %d\n", map.mapstruct.ceilling_color.red, map.mapstruct.ceilling_color.green, map.mapstruct.ceilling_color.blue);
-	printf("\n__________MAP____________\n\n");
-	while (i < map.map_height)
-	{
-		printf("%s\n", map.map[i]);
-		i++;
-	}
-}
-
 int main(int argc, char **argv)
 {
 	errno = 0;
@@ -84,20 +63,19 @@ int main(int argc, char **argv)
 	{
 		if (!read_file(&map, argv[1]))
 		{
-			print_map(map);
-			ft_putstr_fd("Error: not a valid map structure", 0);
+			ft_putstr_fd("Error:\nnot a valid file", 0);
 			return (-1);
 		}
 		if (!is_map_valid(&map))
 		{
-			ft_putstr_fd("Error: not a valid map", 0);
+			ft_putstr_fd("Error:\nnot a valid map", 0);
 			return (-1);
 		}
-		print_map(map);
-		if (argc == 2)
-			create(&map, 0);
-		else
+		if (argc == 3)
 			create(&map, 1);
+		else
+			create(&map, 0);
 	}
+	ft_putstr_fd("Error:\nivalid arguments", 0);
 	return (0);
 }

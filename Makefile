@@ -32,8 +32,6 @@ SRCS = ./gnl/get_next_line.c \
 	./SRCS/tools/draw_back.c \
 	./SRCS/tools/screenshot/screenshot_maker.c \
 	./SRCS/draw_world.c \
-	./SRCS/tools/map_printer/print_map.c \
-	./SRCS/tools/map_printer/print_map_utils.c \
 	./SRCS/tools/map_reader/map_reader.c \
 	./SRCS/tools/map_reader/map_reader_utils.c \
 	./SRCS/tools/map_reader/line_parser.c \

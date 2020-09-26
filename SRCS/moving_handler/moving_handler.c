@@ -12,17 +12,17 @@
 
 #include "../../includes/cub3d.h"
 
-static void change_anchorleft(t_map *map, float delta)
+static void	change_anchorleft(t_map *map, float delta)
 {
 	map->player.alpha -= delta;
 }
 
-static void change_anchorright(t_map *map, float delta)
+static void	change_anchorright(t_map *map, float delta)
 {
 	map->player.alpha += delta;
 }
 
-int		get_key(int keycode, t_vars *vars)
+int			get_key(int keycode, t_vars *vars)
 {
 	float	anchor_delta;
 	float	moving_delta;
@@ -48,7 +48,7 @@ int		get_key(int keycode, t_vars *vars)
 	return(1);
 }
 
-void	hook_keys(t_vars *vars)
+void		hook_keys(t_vars *vars)
 {
 	mlx_hook(vars->win, 2, 0, get_key, vars);
 }

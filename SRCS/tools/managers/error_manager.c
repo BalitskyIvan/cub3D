@@ -16,8 +16,8 @@ void catch_error()
 {
 	if (errno != 0)
 	{
-		perror("Program exit with error code");
-		// exit(errno);
+		perror("Error\n");
+		exit(errno);
 	}
 }
 
@@ -25,7 +25,8 @@ void catch_maperror()
 {
 	if (errno != 0)
 	{
-		perror("Map is invalid");
+		perror("Error\n");
 		exit(errno);
 	}
 }
+

@@ -68,17 +68,35 @@ static int	read_map(t_map *map, char *path)
 	return (1);
 }
 
+static int	is_file_valid(char *path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i] != '.' && path[i])
+		i++;
+	if (path[i] == '.' &&
+		path[i + 1] == 'c' &&
+		path[i + 2] == 'u' &&
+		path[i + 3] == 'b' &&
+		path[i + 4] == '\0')
+		return (1);
+	return (0);
+}
+
 int			read_file(t_map *map, char *path)
 {
 	int		fd;
 	char	*line;
 
+	if (!is_file_valid(path))
+		return (0);
 	fd = open(path, O_RDONLY);
 	catch_error();
 	while (get_next_line(fd, &line))
 	{
 		if (ft_strlen(line) > 2)
-			catch_params(map, map->mapstruct, line);
+			catch_params(map, map->mapstruct, line); 
 		free(line);
 	}
 	catch_params(map, map->mapstruct, line);
