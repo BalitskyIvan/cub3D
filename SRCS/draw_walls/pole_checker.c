@@ -21,12 +21,16 @@ static int	search_no_wall(t_map *map, t_vector2 vector_pos, int last)
 	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '1' &&
 	(last == 2 || last == 0)) ||
 	(map->map[(int)(vector_pos.y - STEP)][(int)vector_pos.x] == '1' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x + STEP)] == '0' &&
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x + STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x + STEP)]) &&
 	last == 0) ||
 	(map->map[(int)(vector_pos.y - STEP)][(int)vector_pos.x] == '1' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '0' &&
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
 	(last == 0 || last == 2)))
 		return (1);
 	return (0);
@@ -41,13 +45,15 @@ static int	search_ea_wall(t_map *map, t_vector2 vector_pos, int last)
 	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x + STEP)] == '1' &&
 	(last == 1 || last == 2)) ||
 	(map->map[(int)vector_pos.y][(int)(vector_pos.x - STEP)] == '1' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	last == 2) ||
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x + STEP)]) && last == 2) ||
 	(map->map[(int)vector_pos.y][(int)(vector_pos.x - STEP)] == '1' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	(last == 1 || last == 2)))
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x + STEP)]) && (last == 1 || last == 2)))
 		return (1);
 	return (0);
 }
@@ -58,13 +64,15 @@ static int	search_so_wall(t_map *map, t_vector2 vector_pos, int last)
 	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x - STEP)] == '1' &&
 	last == 1) ||
 	(map->map[(int)(vector_pos.y + STEP)][(int)vector_pos.x] == '1' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	last == 1) ||
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x - STEP)]) && last == 1) ||
 	(map->map[(int)(vector_pos.y + STEP)][(int)vector_pos.x] == '1' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	map->map[(int)(vector_pos.y - STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	(last == 1 || last == 3)))
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x + STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y - STEP)]
+	[(int)(vector_pos.x + STEP)]) && (last == 1 || last == 3)))
 		return (1);
 	return (0);
 }
@@ -81,9 +89,10 @@ static int	get_ifangular(t_map *map, t_vector2 vector_pos, int last)
 	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '1' &&
 	last == 3) ||
 	(map->map[(int)vector_pos.y][(int)(vector_pos.x + STEP)] == '1' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x - STEP)] == '0' &&
-	map->map[(int)(vector_pos.y + STEP)][(int)(vector_pos.x + STEP)] == '0' &&
-	last == 3))
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x - STEP)]) &&
+	is_an_object(map->map[(int)(vector_pos.y + STEP)]
+	[(int)(vector_pos.x + STEP)]) && last == 3))
 		return (3);
 	return (3);
 }

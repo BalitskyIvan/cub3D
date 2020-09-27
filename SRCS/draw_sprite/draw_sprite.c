@@ -14,8 +14,8 @@
 
 static float	get_dst(t_vars *vars, t_vector2 *config)
 {
-	return (sqrt(pow((vars->map->player.x - config->x - 0.5), 2) +
-		pow((vars->map->player.y - config->y - 0.5), 2)) * 0.85);
+	return (sqrt(pow((vars->map->player.x - config->x), 2) +
+		pow((vars->map->player.y - config->y), 2)));
 }
 
 static void		sort(t_list *sprite_list, t_vars *vars)
@@ -68,8 +68,8 @@ static void		draw(t_vars *vars, t_vector2 *config, float dist[])
 	float		sprite_dist;
 	int			sprite_screen_size;
 
-	sprite_dist = sqrt((pow((vars->map->player.x - config->x - 0.5), 2)
-	+ pow((vars->map->player.y - config->y - 0.5), 2))) * 0.85;
+	sprite_dist = sqrt((pow((vars->map->player.x - config->x), 2)
+	+ pow((vars->map->player.y - config->y), 2)));
 	sprite_screen_size = get_sprite_screensize(sprite_dist, vars);
 	iterator.x = 0;
 	size = get_sprite_size(vars, config, sprite_screen_size);
