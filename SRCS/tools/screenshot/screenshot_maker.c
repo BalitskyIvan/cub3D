@@ -12,14 +12,10 @@
 
 #include "../../../includes/cub3d.h"
 
-static void	create_header(t_vars *vars, int fd, int *pad)
+static void	write_header(int fd, t_vars *vars, unsigned int size)
 {
-	unsigned int	size;
 	unsigned char	header[54];
 
-	*pad = (4 - (vars->map->mapstruct.rate_width * 3) % 4) % 4;
-	size = 54 + (*pad + (vars->map->mapstruct.rate_width * 3))
-	* vars->map->mapstruct.rate_height;
 	ft_memset(header, (unsigned char)0, 54);
 	header[0] = 'B';
 	header[1] = 'M';
@@ -42,7 +38,17 @@ static void	create_header(t_vars *vars, int fd, int *pad)
 	write(fd, header, 54);
 }
 
-void	make_screenshot(t_vars *vars)
+static void	create_header(t_vars *vars, int fd, int *pad)
+{
+	unsigned int	size;
+
+	*pad = (4 - (vars->map->mapstruct.rate_width * 3) % 4) % 4;
+	size = 54 + (*pad + (vars->map->mapstruct.rate_width * 3))
+	* vars->map->mapstruct.rate_height;
+	write_header(fd, vars, size);
+}
+
+void		make_screenshot(t_vars *vars)
 {
 	int				fd;
 	int				i;

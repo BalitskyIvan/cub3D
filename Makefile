@@ -38,6 +38,7 @@ SRCS = ./gnl/get_next_line.c \
 	./SRCS/tools/map_reader/parse_color.c \
 	./SRCS/tools/map_reader/parse_r.c \
 	./SRCS/tools/map_reader/parse_texture.c \
+	./SRCS/tools/parser/init_spritelist.c \
 	./SRCS/tools/parser/parser.c \
 	./SRCS/tools/parser/parser_utils.c \
 	./SRCS/tools/managers/error_manager.c

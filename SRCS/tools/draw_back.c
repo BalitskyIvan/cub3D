@@ -12,16 +12,16 @@
 
 #include "../../includes/cub3d.h"
 
-void	draw_back(t_map *map, t_data *img)
+void	create_floor(t_map *map, t_data *img)
 {
-	int i;
-	int i2;
+	int	i;
+	int	i2;
 
 	i = 0;
 	while (i < map->mapstruct.rate_width)
 	{
 		i2 = 0;
-		while(i2 < map->mapstruct.rate_height / 2)
+		while (i2 < map->mapstruct.rate_height / 2)
 		{
 			my_mlx_pixel_put(img, i, i2, create_trgb(1,
 			map->mapstruct.floor_color.red, map->mapstruct.floor_color.green,
@@ -30,14 +30,23 @@ void	draw_back(t_map *map, t_data *img)
 		}
 		i++;
 	}
+}
+
+void	draw_back(t_map *map, t_data *img)
+{
+	int	i;
+	int	i2;
+
 	i = 0;
+	create_floor(map, img);
 	while (i < map->mapstruct.rate_width)
 	{
 		i2 = map->mapstruct.rate_height / 2;
-		while(i2 < map->mapstruct.rate_height)
+		while (i2 < map->mapstruct.rate_height)
 		{
 			my_mlx_pixel_put(img, i, i2, create_trgb(1,
-			map->mapstruct.ceilling_color.red, map->mapstruct.ceilling_color.green,
+			map->mapstruct.ceilling_color.red,
+			map->mapstruct.ceilling_color.green,
 			map->mapstruct.ceilling_color.blue));
 			i2++;
 		}

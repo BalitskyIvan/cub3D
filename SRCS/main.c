@@ -12,19 +12,20 @@
 
 #include "../includes/cub3d.h"
 
-static t_color init_color()
+static t_color		init_color(void)
 {
 	t_color color;
+
 	color.red = -1;
 	color.green = -1;
 	color.blue = -1;
 	return (color);
 }
 
-static t_mapstruct init_mapstruct()
+static t_mapstruct	init_mapstruct(void)
 {
 	t_mapstruct mapstruct;
-	
+
 	mapstruct.rate_width = -1;
 	mapstruct.rate_height = -1;
 	mapstruct.no_texture = NULL;
@@ -37,12 +38,12 @@ static t_mapstruct init_mapstruct()
 	return (mapstruct);
 }
 
-static t_map init_map()
+static t_map		init_map(void)
 {
-	t_map map;
-	t_player player;
-	t_mapstruct mapstruct;
-	
+	t_map		map;
+	t_player	player;
+	t_mapstruct	mapstruct;
+
 	player.x = -1;
 	player.y = -1;
 	map.is_map_valid = 1;
@@ -52,11 +53,11 @@ static t_map init_map()
 	return (map);
 }
 
-int main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	errno = 0;
 	t_map map;
 
+	errno = 0;
 	map = init_map();
 	if (argc == 2 || (argc == 3 && ft_strlen(argv[2]) == 6 &&
 	ft_strncmp(argv[2], "--save", 6) == 0))

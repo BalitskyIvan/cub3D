@@ -96,7 +96,7 @@ int			read_file(t_map *map, char *path)
 	while (get_next_line(fd, &line))
 	{
 		if (ft_strlen(line) > 2)
-			catch_params(map, map->mapstruct, line); 
+			catch_params(map, map->mapstruct, line);
 		free(line);
 	}
 	catch_params(map, map->mapstruct, line);

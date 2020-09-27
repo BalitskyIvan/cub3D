@@ -35,7 +35,7 @@ float		get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
 	return (r);
 }
 
-void			draw_world(t_data *img, t_map *map, t_vars *vars)
+void		draw_world(t_data *img, t_map *map, t_vars *vars)
 {
 	int		i;
 	int		last;

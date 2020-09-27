@@ -14,8 +14,10 @@
 
 void	turn_left(t_map *map, float delta)
 {
-	if (map->player.x + delta * cos(map->player.alpha - PI / 2) < map->map_width - 1 &&
-		map->player.y + delta * sin(map->player.alpha - PI / 2) < map->map_height - 1 &&
+	if (map->player.x + delta * cos(map->player.alpha - PI / 2)
+		< map->map_width - 1 &&
+		map->player.y + delta * sin(map->player.alpha - PI / 2)
+		< map->map_height - 1 &&
 		map->player.x + delta * cos(map->player.alpha - PI / 2) >= 0 &&
 		map->player.y + delta * sin(map->player.alpha - PI / 2) >= 0)
 	{
@@ -30,8 +32,10 @@ void	turn_left(t_map *map, float delta)
 
 void	turn_right(t_map *map, float delta)
 {
-	if (map->player.x + delta * cos(map->player.alpha + PI / 2) < map->map_width - 1 &&
-		map->player.y + delta * sin(map->player.alpha + PI / 2) < map->map_height - 1 &&
+	if (map->player.x + delta * cos(map->player.alpha + PI / 2)
+		< map->map_width - 1 &&
+		map->player.y + delta * sin(map->player.alpha + PI / 2)
+		< map->map_height - 1 &&
 		map->player.x + delta * cos(map->player.alpha + PI / 2) >= 0 &&
 		map->player.y + delta * sin(map->player.alpha + PI / 2) >= 0)
 	{

@@ -12,7 +12,7 @@
 
 #include "../../../includes/cub3d.h"
 
-void catch_error()
+void	catch_error(void)
 {
 	if (errno != 0)
 	{
@@ -21,7 +21,7 @@ void catch_error()
 	}
 }
 
-void catch_maperror()
+void	catch_maperror(void)
 {
 	if (errno != 0)
 	{
@@ -29,4 +29,3 @@ void catch_maperror()
 		exit(errno);
 	}
 }
-

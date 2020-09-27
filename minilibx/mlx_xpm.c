@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-
 #include "mlx.h"
 
 typedef struct  s_xpm_col
@@ -354,7 +353,6 @@ void	mlx_int_file_get_rid_comment(char *ptr, int size)
       memset(ptr+com_begin,' ',com_end+3);
     }
 }
-
 
 void	*mlx_xpm_file_to_image(void *xvar,char *file,int *width,int *height)
 {

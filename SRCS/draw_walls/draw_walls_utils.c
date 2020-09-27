@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-int	check_angular(t_vector2 *wall_xy, t_map *map)
+int			check_angular(t_vector2 *wall_xy, t_map *map)
 {
 	if (map->map[(int)(wall_xy->y - STEP)][(int)wall_xy->x] == '1' &&
 		map->map[(int)wall_xy->y][(int)(wall_xy->x - STEP)] == '1')

@@ -26,7 +26,7 @@ int			get_key(int keycode, t_vars *vars)
 {
 	float	anchor_delta;
 	float	moving_delta;
-	t_map *map;
+	t_map	*map;
 
 	anchor_delta = 0.1;
 	moving_delta = 0.1;
@@ -45,10 +45,17 @@ int			get_key(int keycode, t_vars *vars)
 	if (keycode == 124)
 		change_anchorright(vars->map, anchor_delta);
 	render(vars);
-	return(1);
+	return (1);
+}
+
+int			on_close(int keycode, t_vars *vars)
+{
+	exit(0);
+	return (1);
 }
 
 void		hook_keys(t_vars *vars)
 {
 	mlx_hook(vars->win, 2, 0, get_key, vars);
+	mlx_hook(vars->win, 17, 0, on_close, vars);
 }

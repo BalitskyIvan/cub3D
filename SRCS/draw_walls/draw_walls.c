@@ -28,7 +28,8 @@ float x, float height)
 		drawconfig.texture_get.y =
 		(i - (vars->map->mapstruct.rate_height / 2 - height / 2)) /
 		(height / drawconfig.texture_wh.y);
-		my_mlx_pixel_put(vars->img, x, i, my_mlx_pixel_get(drawconfig.texture, drawconfig.texture_get.x, drawconfig.texture_get.y));
+		my_mlx_pixel_put(vars->img, x, i, my_mlx_pixel_get(drawconfig.texture,
+		drawconfig.texture_get.x, drawconfig.texture_get.y));
 		i++;
 	}
 }

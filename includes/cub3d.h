@@ -26,7 +26,7 @@
 # endif
 
 # ifndef STEP
-#  define STEP 0.005
+#  define STEP 0.01
 # endif
 
 # include <unistd.h>
@@ -115,6 +115,8 @@ typedef struct			s_vars {
 		t_list			*sprite_list;
 }						t_vars;
 
+void			load_so_no(t_vars *vars);
+void			load_we_ea_sprite(t_vars *vars);
 void			make_screenshot(t_vars *vars);
 int				is_collision_detected(float delta_x, float delta_y, t_map *map);
 int				get_sprite_screensize(float sprite_dist, t_vars *vars);

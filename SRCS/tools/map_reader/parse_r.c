@@ -31,6 +31,20 @@ static int	split_whitespace(char *line, int i)
 	return (i);
 }
 
+static void	check_resolution(char end_sym, int *width, int *height)
+{
+	if (end_sym != '\0' || *(width) < 1 ||
+	*(height) < 1)
+	{
+		*(width) = -2;
+		*(height) = -2;
+	}
+	if (*(width) > 2560)
+		*(width) = 2560;
+	if (*(height) > 1440)
+		*(height) = 1440;
+}
+
 int			parse_r(t_map *map, char *line)
 {
 	int i;
@@ -50,11 +64,7 @@ int			parse_r(t_map *map, char *line)
 		i++;
 	map->mapstruct.rate_height = ft_atoi(line + i);
 	i = split_whitespace(line, i);
-	if (line[i] != '\0' || map->mapstruct.rate_width < 1 ||
-		map->mapstruct.rate_height < 1)
-	{
-		map->mapstruct.rate_width = -2;
-		map->mapstruct.rate_height = -2;
-	}
+	check_resolution(line[i], &map->mapstruct.rate_width,
+	&map->mapstruct.rate_height);
 	return (1);
 }
