@@ -41,6 +41,7 @@ static void		sort(t_list *sprite_list, t_vars *vars)
 				current->next->content = current->content;
 				current->content = config;
 			}
+			dist = get_dst(vars, config);
 			current = current->next;
 		}
 	}

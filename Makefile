@@ -59,7 +59,7 @@ $(NAME): $(O_FILE)
 	#$(MAKE) -C libft fclean
 	#$(MAKE) -C minilibx clean
 
-%.o: %.c ./includes/.h
+%.o: %.c ./includes/cub3d.h
 	gcc -c $(CFLAGS) -I$(HEADER) -c $< -o $@ -MD
 
 clean:
