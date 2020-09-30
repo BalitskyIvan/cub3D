@@ -26,7 +26,6 @@ int			get_key(int keycode, t_vars *vars)
 {
 	float	anchor_delta;
 	float	moving_delta;
-	t_map	*map;
 
 	anchor_delta = 0.1;
 	moving_delta = 0.1;
@@ -50,6 +49,8 @@ int			get_key(int keycode, t_vars *vars)
 
 int			on_close(int keycode, t_vars *vars)
 {
+	keycode = 5;
+	vars->wall_xy.y = 0;
 	exit(0);
 	return (1);
 }

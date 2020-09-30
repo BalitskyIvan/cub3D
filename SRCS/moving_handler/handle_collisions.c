@@ -20,10 +20,10 @@ static char	get_map_element(float delta_x, float delta_y, t_map *map)
 
 int			is_collision_detected(float delta_x, float delta_y, t_map *map)
 {
-	if (is_wall(get_map_element(delta_x + 0.5, delta_y, map)) ||
-		is_wall(get_map_element(delta_x, delta_y + 0.5, map)) ||
-		is_wall(get_map_element(delta_x - 0.5, delta_y, map)) ||
-		is_wall(get_map_element(delta_x, delta_y - 0.5, map)))
+	if (is_wall(get_map_element(delta_x + 0.1, delta_y, map)) ||
+		is_wall(get_map_element(delta_x, delta_y + 0.1, map)) ||
+		is_wall(get_map_element(delta_x - 0.1, delta_y, map)) ||
+		is_wall(get_map_element(delta_x, delta_y - 0.1, map)))
 		return (1);
 	else
 		return (0);

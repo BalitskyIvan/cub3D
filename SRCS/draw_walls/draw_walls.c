@@ -38,6 +38,8 @@ int			draw_walls(t_vars *vars, int i, int last, float dist)
 {
 	t_drawconfig	drawconfig;
 
+	if (dist > 99)
+		return (last);
 	last = get_wall_pole(vars->wall_xy, vars->map, last);
 	init_drawconfig(vars, &drawconfig, last, vars->wall_xy);
 	draw_rect(vars, drawconfig, i,

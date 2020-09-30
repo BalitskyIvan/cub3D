@@ -23,9 +23,10 @@ SRCS = ./gnl/get_next_line.c \
 	./SRCS/moving_handler/moving_handler.c \
 	./SRCS/moving_handler/moving_handler_utils.c \
 	./SRCS/screen/screen.c \
+	./SRCS/screen/loader.c \
+	./SRCS/screen/screen_utils.c \
 	./SRCS/draw_sprite/draw_sprite.c \
 	./SRCS/draw_sprite/draw_sprite_utils.c \
-	./SRCS/screen/screen_utils.c \
 	./SRCS/draw_walls/draw_walls.c \
 	./SRCS/draw_walls/draw_walls_utils.c \
 	./SRCS/draw_walls/pole_checker.c \
@@ -47,19 +48,19 @@ O_FILE = $(patsubst %.c,%.o,$(SRCS))
 D_FILE = $(patsubst %.c,%.d,$(SRCS))
 
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(O_FILE)
 	$(MAKE) -C libft all
 	$(MAKE) -C minilibx all
-	gcc $(FLAGS) $(O_FILE) $(LIBFT_DIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	gcc $(CFLAGS) $(O_FILE) $(LIBFT_DIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	#$(MAKE) -C libft fclean
 	#$(MAKE) -C minilibx clean
 
 %.o: %.c ./includes/.h
-	gcc -c $(FLAGS) -I$(HEADER) -c $< -o $@ -MD
+	gcc -c $(CFLAGS) -I$(HEADER) -c $< -o $@ -MD
 
 clean:
 	rm -f $(O_FILE)

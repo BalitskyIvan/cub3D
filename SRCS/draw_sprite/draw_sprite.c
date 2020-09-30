@@ -15,7 +15,7 @@
 static float	get_dst(t_vars *vars, t_vector2 *config)
 {
 	return (sqrt(pow((vars->map->player.x - config->x), 2) +
-		pow((vars->map->player.y - config->y), 2)));
+		pow((vars->map->player.y - config->y), 2)) * 0.95);
 }
 
 static void		sort(t_list *sprite_list, t_vars *vars)
@@ -69,7 +69,7 @@ static void		draw(t_vars *vars, t_vector2 *config, float dist[])
 	int			sprite_screen_size;
 
 	sprite_dist = sqrt((pow((vars->map->player.x - config->x), 2)
-	+ pow((vars->map->player.y - config->y), 2)));
+	+ pow((vars->map->player.y - config->y), 2))) * 0.95;
 	sprite_screen_size = get_sprite_screensize(sprite_dist, vars);
 	iterator.x = 0;
 	size = get_sprite_size(vars, config, sprite_screen_size);
@@ -90,6 +90,8 @@ int				draw_sprite(t_list *sprite_list, t_vars *vars, float dist[])
 	t_vector2	*config;
 	int			i2;
 
+	if (sprite_list == NULL)
+		return (1);
 	sort(sprite_list, vars);
 	i2 = ft_lstsize(sprite_list) - 1;
 	current = get_current_item(sprite_list, i2);

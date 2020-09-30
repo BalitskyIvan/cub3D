@@ -26,13 +26,13 @@ static int		is_sym_closed(char **map, int x, int y, t_map *mapconf)
 static float	get_player_angle(char a)
 {
 	if (a == 'N')
-		return (0);
-	if (a == 'S')
 		return (PI + PI / 2);
+	if (a == 'S')
+		return (PI / 2);
 	if (a == 'W')
 		return (PI);
 	if (a == 'E')
-		return (PI / 2);
+		return (0);
 	return (0);
 }
 
@@ -66,7 +66,7 @@ int				is_map_valid(t_map *map)
 	int	y;
 
 	y = 0;
-	while (y < map->map_height - 1)
+	while (y < map->map_height)
 	{
 		x = 0;
 		while (x < map->map_width)

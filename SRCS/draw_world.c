@@ -15,10 +15,9 @@
 float		get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
 {
 	float	r;
-	float	delta;
 
 	r = 0;
-	while (r < 25)
+	while (r < 100)
 	{
 		wall_xy->x = map->player.x + r * cos(alpha);
 		wall_xy->y = map->player.y + r * sin(alpha);
@@ -35,7 +34,7 @@ float		get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
 	return (r);
 }
 
-void		draw_world(t_data *img, t_map *map, t_vars *vars)
+void		draw_world(t_map *map, t_vars *vars)
 {
 	int		i;
 	int		last;

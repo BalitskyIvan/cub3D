@@ -12,11 +12,10 @@
 
 #include "../../../includes/cub3d.h"
 
-static int	get_map_line_size(char *path, t_map *map)
+static int	get_map_line_size(char *path, t_map *map, char *line)
 {
 	int		fd;
-	char	*line;
-	int		i;
+	int		res;
 	int		size;
 
 	line = NULL;
@@ -25,16 +24,16 @@ static int	get_map_line_size(char *path, t_map *map)
 	fd = open(path, O_RDONLY);
 	catch_error();
 	size = skip_map_struct(fd, line);
-	while (get_next_line(fd, &line) == 1)
+	while ((res = get_next_line(fd, &line)) == 1)
 	{
 		if (!is_line_valid(line))
 			break ;
-		if (ft_strlen(line) > map->map_width)
-			map->map_width = ft_strlen(line);
+		if ((int)ft_strlen(line) > map->map_width)
+			map->map_width = (int)ft_strlen(line);
 		free(line);
 		map->map_height++;
 	}
-	check_valid_end(line, map, fd);
+	check_valid_end(line, map, res);
 	free(line);
 	close(fd);
 	return (size);
@@ -48,7 +47,8 @@ static int	read_map(t_map *map, char *path)
 	int		fd;
 
 	fd = open(path, O_RDONLY);
-	skip_to_map(get_map_line_size(path, map), fd);
+	line = NULL;
+	skip_to_map(get_map_line_size(path, map, line), fd);
 	map->map = (char **)malloc(sizeof(char *) * (map->map_height + 1));
 	i = 0;
 	while ((res = get_next_line(fd, &line)) && i < map->map_height - 1)
