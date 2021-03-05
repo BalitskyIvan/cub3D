@@ -67,12 +67,18 @@ void	skip_to_map(int parameters_h, int fd)
 
 int		is_line_valid(char *line)
 {
-	int i;
+	int	i;
+	int	flag;
 
 	i = 0;
+	flag = 0;
 	while (line[i] == ' ')
+	{
+		flag = 1;
 		i++;
-	if (is_right_arg(line[i]))
+	}
+	if ((is_right_arg(line[i]) || line[i] == '\0') && (flag == 1 || (i == 0 &&
+	line[i] != '\0')))
 		return (1);
 	else
 		return (0);

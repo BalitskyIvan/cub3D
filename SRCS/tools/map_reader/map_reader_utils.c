@@ -38,15 +38,15 @@ void		catch_params(t_map *map, t_mapstruct conf, char *line)
 	if (line[0] == 'R')
 		parse_r(map, line);
 	if (line[0] == 'N' && line[1] == 'O')
-		map->mapstruct.no_texture = get_texture(line, conf.no_texture);
+		map->mapstruct.no_texture = get_texture(line);
 	if (line[0] == 'S' && line[1] == 'O')
-		map->mapstruct.so_texture = get_texture(line, conf.so_texture);
+		map->mapstruct.so_texture = get_texture(line);
 	if (line[0] == 'W' && line[1] == 'E')
-		map->mapstruct.we_texture = get_texture(line, conf.we_texture);
+		map->mapstruct.we_texture = get_texture(line);
 	if (line[0] == 'E' && line[1] == 'A')
-		map->mapstruct.ea_texture = get_texture(line, conf.ea_texture);
+		map->mapstruct.ea_texture = get_texture(line);
 	if (line[0] == 'S' && line[1] == ' ')
-		map->mapstruct.sprite_texture = get_texture(line, conf.sprite_texture);
+		map->mapstruct.sprite_texture = get_texture(line);
 	if (line[0] == 'F' && line[1] == ' ')
 		map->mapstruct.floor_color = get_color(line);
 	if (line[0] == 'C' && line[1] == ' ')
@@ -69,32 +69,25 @@ int			skip_map_struct(int fd, char *line)
 			i++;
 		if (line[i] == '1')
 			break ;
+		free(line);
 		size++;
 	}
+	free(line);
 	return (size);
 }
 
-void		check_valid_end(char *line, t_map *map, int fd)
+void		check_valid_end(char *line, t_map *map, int res)
 {
 	if (is_line_valid(line))
 	{
-		if (ft_strlen(line) > map->map_width)
+		if ((int)ft_strlen(line) > map->map_width)
 			map->map_width = ft_strlen(line);
 		catch_error();
 		map->map_height++;
 	}
 	else
 	{
-		while (get_next_line(fd, &line) == 1)
-		{
-			if (is_line_valid(line))
-			{
-				map->map_width = 0;
-				map->map_height = 0;
-			}
-			free(line);
-		}
-		if (is_line_valid(line))
+		if (res != 0)
 		{
 			map->map_width = 0;
 			map->map_height = 0;

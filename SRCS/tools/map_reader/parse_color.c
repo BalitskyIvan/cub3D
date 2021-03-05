@@ -22,14 +22,22 @@ static void	check_maxcolor(t_color *color)
 	}
 }
 
-static void	check_linevalid(char end_char, t_color *color)
+static int	set_color(int start, int *res, char *line, char exit_sym)
 {
-	if (end_char != '\0')
-	{
-		(*color).red = -1;
-		(*color).green = -1;
-		(*color).blue = -1;
-	}
+	int i;
+
+	i = start;
+	while (line[i] == ' ' && line[i])
+		i++;
+	*res = ft_atoi(line + i);
+	while (line[i] >= '0' && line[i] <= '9')
+		i++;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] != exit_sym)
+		*res = -1;
+	i++;
+	return (i);
 }
 
 t_color		get_color(char *line)
@@ -37,25 +45,9 @@ t_color		get_color(char *line)
 	int		i;
 	t_color	color;
 
-	i = 1;
-	while (line[i] == ' ' && line[i])
-		i++;
-	color.red = ft_atoi(line + i);
-	while (line[i] != ',' && line[i])
-		i++;
-	i++;
-	color.green = ft_atoi(line + i);
-	while (line[i] != ',' && line[i])
-		i++;
-	i++;
-	while (line[i] == ' ')
-		i++;
-	color.blue = ft_atoi(line + i);
+	i = set_color(1, &color.red, line, ',');
+	i = set_color(i, &color.green, line, ',');
+	i = set_color(i, &color.blue, line, '\0');
 	check_maxcolor(&color);
-	while (line[i] != ' ' && line[i])
-		i++;
-	while (line[i] == ' ')
-		i++;
-	check_linevalid(line[i], &color);
 	return (color);
 }

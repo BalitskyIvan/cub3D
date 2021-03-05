@@ -42,8 +42,11 @@ int				get_sprite_screensize(float sprite_dist, t_vars *vars)
 	int sprite_screen_size;
 
 	sprite_screen_size = vars->map->mapstruct.rate_height / sprite_dist;
-	if (sprite_screen_size > vars->map->mapstruct.rate_height * 2)
-		sprite_screen_size = vars->map->mapstruct.rate_height * 2;
+	while (sprite_screen_size > vars->map->mapstruct.rate_height * 3)
+	{
+		sprite_dist += (float)STEP;
+		sprite_screen_size = vars->map->mapstruct.rate_height / sprite_dist;
+	}
 	return (sprite_screen_size);
 }
 
@@ -55,16 +58,17 @@ int sprite_screen_size)
 	y = 0;
 	while (y < sprite_screen_size)
 	{
-		if (size.y + y < 0 || size.y + y >= vars->map->mapstruct.rate_height)
-			break ;
-		if (size.x + x >= 0 && my_mlx_pixel_get(vars->sprite_texture,
-		x * vars->sprite_texture_wh.x / sprite_screen_size,
-		y * vars->sprite_texture_wh.y / sprite_screen_size)
-		!= 4278190080)
-			my_mlx_pixel_put(vars->img, size.x + x, size.y + y,
-			my_mlx_pixel_get(vars->sprite_texture,
+		if (size.y + y >= 0 && size.y + y < vars->map->mapstruct.rate_height)
+		{
+			if (size.x + x >= 0 && my_mlx_pixel_get(vars->sprite_texture,
 			x * vars->sprite_texture_wh.x / sprite_screen_size,
-			y * vars->sprite_texture_wh.y / sprite_screen_size));
+			y * vars->sprite_texture_wh.y / sprite_screen_size)
+			!= 4278190080)
+				my_mlx_pixel_put(vars->img, size.x + x, size.y + y,
+				my_mlx_pixel_get(vars->sprite_texture,
+				x * vars->sprite_texture_wh.x / sprite_screen_size,
+				y * vars->sprite_texture_wh.y / sprite_screen_size));
+		}
 		y++;
 	}
 }

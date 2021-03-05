@@ -39,6 +39,7 @@ t_list			*init_spritelist(t_vars *vars)
 	t_list			*first_list;
 	int				flag;
 
+	first_list = NULL;
 	position.x = 0;
 	flag = 0;
 	while (position.x < vars->map->map_width)

@@ -14,21 +14,23 @@
 
 static void	load(t_vars *vars)
 {
-	load_so_no(vars);
-	load_we_ea_sprite(vars);
+	if (!load_so_no(vars) ||
+		!load_we_ea(vars) ||
+		!load_sprite(vars))
+		sprite_error();
 }
 
 void		render(t_vars *vars)
 {
 	draw_back(vars->map, vars->img);
-	draw_world(vars->img, vars->map, vars);
+	draw_world(vars->map, vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 }
 
 static void	create_screenshot(t_vars *vars)
 {
 	draw_back(vars->map, vars->img);
-	draw_world(vars->img, vars->map, vars);
+	draw_world(vars->map, vars);
 	make_screenshot(vars);
 }
 

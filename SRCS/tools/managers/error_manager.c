@@ -29,3 +29,9 @@ void	catch_maperror(void)
 		exit(errno);
 	}
 }
+
+void	sprite_error(void)
+{
+	ft_putstr_fd("Error:\nnot a valid sprite file\n", 0);
+	exit(0);
+}

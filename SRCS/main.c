@@ -42,7 +42,6 @@ static t_map		init_map(void)
 {
 	t_map		map;
 	t_player	player;
-	t_mapstruct	mapstruct;
 
 	player.x = -1;
 	player.y = -1;
@@ -64,12 +63,12 @@ int					main(int argc, char **argv)
 	{
 		if (!read_file(&map, argv[1]))
 		{
-			ft_putstr_fd("Error:\nnot a valid file", 0);
+			ft_putstr_fd("Error:\nnot a valid file\n", 0);
 			return (-1);
 		}
 		if (!is_map_valid(&map))
 		{
-			ft_putstr_fd("Error:\nnot a valid map", 0);
+			ft_putstr_fd("Error:\nnot a valid map\n", 0);
 			return (-1);
 		}
 		if (argc == 3)
@@ -77,6 +76,6 @@ int					main(int argc, char **argv)
 		else
 			create(&map, 0);
 	}
-	ft_putstr_fd("Error:\nivalid arguments", 0);
+	ft_putstr_fd("Error:\nivalid arguments\n", 0);
 	return (0);
 }

@@ -12,13 +12,52 @@
 
 #include "../includes/cub3d.h"
 
-float		get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
+static float	get_delta(float *delta)
+{
+	if (*delta < 0)
+	{
+		*delta *= -1;
+		*delta -= 0.0001;
+	}
+	else if (*delta > 0)
+	{
+		*delta -= 0.0001;
+		*delta *= -1;
+	}
+	return (*delta);
+}
+
+static float	get_hight_res(t_map *map, t_vector2 *wall_xy,
+float alpha, float r)
+{
+	float		delta;
+	char		now;
+	t_vector2	position;
+	char		previous;
+
+	previous = map->map[(int)wall_xy->y][(int)wall_xy->x];
+	delta = -0.02;
+	r += delta;
+	position.x = map->player.x + r * cos(alpha);
+	position.y = map->player.y + r * sin(alpha);
+	now = map->map[(int)position.y][(int)position.x];
+	while (now != previous)
+	{
+		previous = now;
+		r += get_delta(&delta);
+		position.x = map->player.x + r * cos(alpha);
+		position.y = map->player.y + r * sin(alpha);
+		now = map->map[(int)position.y][(int)position.x];
+	}
+	return (r);
+}
+
+float			get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
 {
 	float	r;
-	float	delta;
 
 	r = 0;
-	while (r < 25)
+	while (r < 100)
 	{
 		wall_xy->x = map->player.x + r * cos(alpha);
 		wall_xy->y = map->player.y + r * sin(alpha);
@@ -27,15 +66,15 @@ float		get_distance(t_map *map, t_vector2 *wall_xy, float alpha)
 		(int)wall_xy->y > map->mapstruct.rate_height - 1 ||
 		(int)wall_xy->x < 0 || (int)wall_xy->y < 0)
 			break ;
-		if (check_angular(wall_xy, map))
-			break ;
 		if (map->map[(int)wall_xy->y][(int)wall_xy->x] == '1')
+			r = get_hight_res(map, wall_xy, alpha, r);
+		if (check_angular(wall_xy, map))
 			break ;
 	}
 	return (r);
 }
 
-void		draw_world(t_data *img, t_map *map, t_vars *vars)
+void			draw_world(t_map *map, t_vars *vars)
 {
 	int		i;
 	int		last;
